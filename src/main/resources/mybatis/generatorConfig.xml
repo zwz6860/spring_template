@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        
+    <jdbcConnection connectionURL="jdbc:mysql://112.74.160.66:3306/manage" driverClass="com.mysql.cj.jdbc.Driver" password="root" userId="root" />
+    <javaModelGenerator targetPackage="org.java.entity" targetProject="spring_template/src/main/java" />
+    <sqlMapGenerator targetPackage="mapper" targetProject="spring_template/src/main/resources" />
+    <javaClientGenerator targetPackage="org.java.mapper" targetProject="spring_template/src/main/java" type="XMLMAPPER" />
+    
+    <table tableName="winning_list" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
+    	<generatedKey column="ID" sqlStatement="MySql" identity="true" />
+     </table>
+
+  </context>
+</generatorConfiguration>

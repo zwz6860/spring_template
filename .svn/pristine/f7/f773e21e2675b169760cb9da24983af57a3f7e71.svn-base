@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<!-- element样式 -->
+<link rel="stylesheet" href="../static/element-ui/lib/theme-chalk/index.css">
+<style type="text/css">
+		html,body{
+		height:100%;
+		}
+	#app{
+		height: 100%;
+	}
+	.el-tabs__content{
+		height:100%;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+	  <el-tabs v-model="activeName" @tab-click="handleClick" style="height:100%">
+	    <el-tab-pane label="竞猜" name="first" style="height:100%;">
+	    	<iframe frameborder="no" src="/lottery/skipLottery" style="height:100%;width:100%"></iframe>
+	    </el-tab-pane>
+	    <el-tab-pane label="数独" name="second">数独<h1>ss</h1></el-tab-pane>
+	    <!-- <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+	    <el-tab-pane label="发表素材" name="fourth">发表素材</el-tab-pane> -->
+	  </el-tabs>
+	</div>
+</body>
+<!-- vueJs -->
+<script type="text/javascript" src="../static/js/vue.min.js"></script>
+<!-- elementJs -->
+<script type="text/javascript" src="../static/element-ui/lib/index.js"></script>
+<script type="text/javascript">
+	new Vue({
+	       el : '#app',
+			data() {
+				return {
+					activeName: 'second'
+				}
+			},
+			methods: {
+			      handleClick(tab, event) {
+			    	  
+			        }
+			}
+	})
+</script>
+</html>

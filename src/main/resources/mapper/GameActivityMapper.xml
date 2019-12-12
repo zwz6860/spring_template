@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.java.mapper.GameActivityMapper">
+  <resultMap id="BaseResultMap" type="org.java.entity.GameActivity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date_type" jdbcType="TINYINT" property="dateType" />
+    <result column="activity_begin_time" jdbcType="TIME" property="activityBeginTime" />
+    <result column="activity_end_time" jdbcType="TIME" property="activityEndTime" />
+    <result column="activity_name" jdbcType="VARCHAR" property="activityName" />
+    <result column="activity_award" jdbcType="TINYINT" property="activityAward" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date_type, activity_begin_time, activity_end_time, activity_name, activity_award
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from game_activity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.GameActivity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into game_activity (date_type, activity_begin_time, activity_end_time, 
+      activity_name, activity_award)
+    values (#{dateType,jdbcType=TINYINT}, #{activityBeginTime,jdbcType=TIME}, #{activityEndTime,jdbcType=TIME}, 
+      #{activityName,jdbcType=VARCHAR}, #{activityAward,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.GameActivity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into game_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dateType != null">
+        date_type,
+      </if>
+      <if test="activityBeginTime != null">
+        activity_begin_time,
+      </if>
+      <if test="activityEndTime != null">
+        activity_end_time,
+      </if>
+      <if test="activityName != null">
+        activity_name,
+      </if>
+      <if test="activityAward != null">
+        activity_award,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dateType != null">
+        #{dateType,jdbcType=TINYINT},
+      </if>
+      <if test="activityBeginTime != null">
+        #{activityBeginTime,jdbcType=TIME},
+      </if>
+      <if test="activityEndTime != null">
+        #{activityEndTime,jdbcType=TIME},
+      </if>
+      <if test="activityName != null">
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAward != null">
+        #{activityAward,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.GameActivity">
+    update game_activity
+    <set>
+      <if test="dateType != null">
+        date_type = #{dateType,jdbcType=TINYINT},
+      </if>
+      <if test="activityBeginTime != null">
+        activity_begin_time = #{activityBeginTime,jdbcType=TIME},
+      </if>
+      <if test="activityEndTime != null">
+        activity_end_time = #{activityEndTime,jdbcType=TIME},
+      </if>
+      <if test="activityName != null">
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAward != null">
+        activity_award = #{activityAward,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.GameActivity">
+    update game_activity
+    set date_type = #{dateType,jdbcType=TINYINT},
+      activity_begin_time = #{activityBeginTime,jdbcType=TIME},
+      activity_end_time = #{activityEndTime,jdbcType=TIME},
+      activity_name = #{activityName,jdbcType=VARCHAR},
+      activity_award = #{activityAward,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getGameActivityInfo" resultType="list" resultMap="BaseResultMap">
+  	select * from game_activity
+  </select>
+</mapper>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.java.mapper.WinningListMapper">
+  <resultMap id="BaseResultMap" type="org.java.entity.WinningList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="one_winning_num" jdbcType="INTEGER" property="oneWinningNum" />
+    <result column="two_winning_num" jdbcType="INTEGER" property="twoWinningNum" />
+    <result column="three_winning_num" jdbcType="INTEGER" property="threeWinningNum" />
+    <result column="four_winning_num" jdbcType="INTEGER" property="fourWinningNum" />
+    <result column="five_winning_num" jdbcType="INTEGER" property="fiveWinningNum" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="integral" jdbcType="INTEGER" property="integral" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, one_winning_num, two_winning_num, three_winning_num, four_winning_num, five_winning_num, 
+    create_time, integral
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from winning_list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from winning_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.WinningList">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into winning_list (one_winning_num, two_winning_num, three_winning_num, 
+      four_winning_num, five_winning_num, create_time, 
+      integral)
+    values (#{oneWinningNum,jdbcType=INTEGER}, #{twoWinningNum,jdbcType=INTEGER}, #{threeWinningNum,jdbcType=INTEGER}, 
+      #{fourWinningNum,jdbcType=INTEGER}, #{fiveWinningNum,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{integral,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.WinningList">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into winning_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oneWinningNum != null">
+        one_winning_num,
+      </if>
+      <if test="twoWinningNum != null">
+        two_winning_num,
+      </if>
+      <if test="threeWinningNum != null">
+        three_winning_num,
+      </if>
+      <if test="fourWinningNum != null">
+        four_winning_num,
+      </if>
+      <if test="fiveWinningNum != null">
+        five_winning_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="integral != null">
+        integral,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oneWinningNum != null">
+        #{oneWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="twoWinningNum != null">
+        #{twoWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="threeWinningNum != null">
+        #{threeWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="fourWinningNum != null">
+        #{fourWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="fiveWinningNum != null">
+        #{fiveWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="integral != null">
+        #{integral,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.WinningList">
+    update winning_list
+    <set>
+      <if test="oneWinningNum != null">
+        one_winning_num = #{oneWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="twoWinningNum != null">
+        two_winning_num = #{twoWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="threeWinningNum != null">
+        three_winning_num = #{threeWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="fourWinningNum != null">
+        four_winning_num = #{fourWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="fiveWinningNum != null">
+        five_winning_num = #{fiveWinningNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="integral != null">
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.WinningList">
+    update winning_list
+    set one_winning_num = #{oneWinningNum,jdbcType=INTEGER},
+      two_winning_num = #{twoWinningNum,jdbcType=INTEGER},
+      three_winning_num = #{threeWinningNum,jdbcType=INTEGER},
+      four_winning_num = #{fourWinningNum,jdbcType=INTEGER},
+      five_winning_num = #{fiveWinningNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      integral = #{integral,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="getInfo" resultType="list" resultMap="BaseResultMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from winning_list
+  </select>
+</mapper>

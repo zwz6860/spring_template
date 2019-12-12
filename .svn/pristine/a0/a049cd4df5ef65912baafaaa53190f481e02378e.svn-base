@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<!-- element样式 -->
+<link rel="stylesheet" href="../static/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+	<span id="app">
+		<el-row>
+	  		<el-col :span="24" style="width:100%;height:300px;">
+	  			<!-- <image style="width: 100%; height: 100%" src="../static/images/index.jpg"></image>	 暂时注释-->
+	  		</el-col>
+		</el-row>
+		<el-row>
+  			<el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+			<el-col :span="8">	
+				<el-form :model="loginFrom" label-width="80px" size="mini" @keyup.enter.native="onSubmit">
+					<el-form-item label="用户名">
+						<el-input v-model="loginFrom.userName" style="float:center;width:200px" size="small" placeholder="请输入账号"></el-input> 
+					</el-form-item>
+					<el-form-item label="密码">
+						<el-input type="password" v-model="loginFrom.pwd" style="float:center;width:200px" size="small" placeholder="请输入密码"></el-input>
+					</el-form-item>
+					<el-form-item size="large">
+						<el-button type="primary" @click="onSubmit">登陆</el-button>
+						<el-button type="primary" @click="onSubmit">注册</el-button>
+						<span style="color:red;">{{resultData}}</span>
+					</el-form-item> 
+				</el-form>
+			</el-col>
+  			<el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+		</el-row>
+		<el-row>
+  			<el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+  			<!-- <el-col :span="8"><div style="color:red;">免责声明：本站非真赌网</div></el-col> 暂时注释-->
+  			<el-col :span="8"></el-col>
+		</el-row>
+	</span>
+</body>
+<!-- vueJs -->
+<script type="text/javascript" src="../static/js/vue.min.js"></script>
+<!-- elementJs -->
+<script type="text/javascript" src="../static/element-ui/lib/index.js"></script>
+<!-- axiosJs -->
+<script type="text/javascript" src="../static/js/axios.min.js"></script>
+<script type="text/javascript">
+	new Vue({
+		el : '#app',
+		data() {
+		      return {
+		    	  loginFrom: {userName: '',pwd: ''},
+		    	  resultData:""//接收登陆错误信息
+		      }
+		    },
+		methods: {
+		      onSubmit() {
+		        console.log('登陆提交!');
+		        console.log(this.loginFrom)
+		        let json={
+		        	loginAccount:this.loginFrom.userName,
+		        	loginPassword:this.loginFrom.pwd
+		        }
+		        let thet=this;
+	            axios.get("/user/login",{params:json}).then(function (response) {
+                	console.log(response.data.model);
+                	//如果跳转页面不为空即登陆成功
+	            	if(response.data.model!="" && response.data.model!=null){
+	            		window.location.href=response.data.model
+	            	}
+	            	thet.resultData=response.data.data
+	              })
+	              .catch(function (error) {
+	                	console.log("请联系管理员");
+	                	console.log(error);
+	              });
+		      }
+		    }
+	})
+</script>
+
+<style>
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+  }
+</style>
+</html>
